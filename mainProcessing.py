@@ -62,8 +62,14 @@ for ii, scan_path in enumerate(scans_paths):
 
     # sampling 4096 points 
     scan = np.asarray(noneplane_cloud.points)
-    sampled_index = np.random.choice(scan.shape[0], num_pnvlad_points, replace=False)      
-    scan = scan[sampled_index, :]
+    if(scan.shape[0] < num_pnvlad_points):
+        repeated_sampled_index = np.random.choice(scan.shape[0], num_pnvlad_points - scan.shape[0], replace=False)      
+        print(num_pnvlad_points - scan.shape[0])
+        repeated_points = scan[repeated_sampled_index, :]
+        scan = np.vstack([scan, repeated_points])    
+    else:
+        sampled_index = np.random.choice(scan.shape[0], num_pnvlad_points, replace=False)      
+        scan = scan[sampled_index, :]
 
     # rescaling into [-1, 1] with zero mean 
     scan_pnvlad = rescaling_points(scan, roi_scale)
