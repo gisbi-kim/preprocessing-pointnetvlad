@@ -41,6 +41,7 @@ for ii, scan_path in enumerate(scans_paths):
 
     # parse ROI points: [-25, 25]m cubic rather than [-80, 80]m cubic
     # - note: at RAL19 said, We empirically checked that an increased window size ([-80 m, 80 m]) deteriorated their performance for PointNetVLAD
+    #        - the ref: Giseop Kim, Byungjae Park and Ayoung Kim, 1-Day Learning, 1-Year Localization: Long-term LiDAR Localization using Scan Context Image. IEEE Robotics and Automation Letters (RA-L) (with ICRA), 4(2):1948-1955, 2019. 
     roi_scale = 25
     roi = np.array([[-roi_scale, roi_scale], [-roi_scale, roi_scale], [-roi_scale, roi_scale]])
     scan = parse_roi_points(np.asarray(pcd.points), roi)
